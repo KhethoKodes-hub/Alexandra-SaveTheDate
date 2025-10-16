@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save the Date - Drop by Drop Outreach</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1f44 0%, #1e3c72 30%, #2a5298 70%, #7e22ce 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: white;
+            position: relative;
+        }
+
+        .water-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .water-drop {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            animation: fall linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes fall {
+            to {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .invitation-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .invitation-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .logo-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-img {
+            height: 80px;
+            width: auto;
+            display: block;
+        }
+
+        h1 {
+            font-size: 4.5em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #a8d8ff, #7e22ce);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.8em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .date-box {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .date {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .year {
+            font-size: 1.5em;
+            opacity: 0.9;
+        }
+
+        .location {
+            font-size: 1.5em;
+            margin-bottom: 50px;
+            opacity: 0.9;
+        }
+
+        .location i {
+            margin-right: 10px;
+            color: #a8d8ff;
+        }
+
+        /* Countdown Styles */
+        .countdown-section {
+            margin: 50px 0;
+        }
+
+        .countdown-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            border-radius: 20px;
+            min-width: 140px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .countdown-value {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffffff, #a8d8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .countdown-label {
+            font-size: 1.2em;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Highlights Section */
+        .highlights-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px 40px;
+            margin-top: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .highlights-title {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .highlight-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px 25px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .highlight-item:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .highlight-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .highlight-text {
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .cta-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .cta-subtitle {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 180, 216, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.6);
+            background: linear-gradient(135deg, #0096c7, #005b8a);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+
+        .brandscapers-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .brandscapers-logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .brandscapers-text {
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3em;
+            }
+            
+            .subtitle {
+                font-size: 1.4em;
+            }
+            
+            .date {
+                font-size: 2em;
+            }
+            
+            .countdown-item {
+                min-width: 120px;
+                padding: 25px 15px;
+            }
+            
+            .countdown-value {
+                font-size: 2.8em;
+            }
+            
+            .logo-img {
+                height: 60px;
+            }
+            
+            .invitation-card {
+                padding: 40px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .countdown-container {
+                gap: 15px;
+            }
+            
+            .countdown-item {
+                min-width: 100px;
+                padding: 20px 10px;
+            }
+            
+            .countdown-value {
+                font-size: 2.2em;
+            }
+            
+            .logo-section {
+                gap: 20px;
+            }
+            
+            .logo-img {
+                height: 50px;
+            }
+            
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="water-background" id="waterBackground"></div>
+    
+    <div class="container">
+        <div class="invitation-card">
+            <div class="logo-section">
+                <div class="logo-container">
+                    <img src="assets/randwaterlogo.png" alt="Rand Water Logo" class="logo-img">
+                </div>
+                <div class="logo-container">
+                    <img src="assets/waterwiselogo.jpg" alt="Water Wise Logo" class="logo-img">
+                </div>
+            </div>
+            
+            <h1>SAVE THE DATE</h1>
+            <div class="subtitle">Drop by Drop Outreach Summit</div>
+            
+            <div class="date-box">
+                <div class="date">30 - 31 OCTOBER</div>
+                <div class="year">2025</div>
+            </div>
+            
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                Uncle Toms Community Hall, Orlando West, Soweto
+            </div>
+            
+            <div class="countdown-section">
+                <div class="countdown-title">Countdown to the Summit</div>
+                <div class="countdown-container">
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="days">00</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="hours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="minutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="seconds">00</div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="highlights-section">
+            <div class="highlights-title">Summit Highlights</div>
+            <div class="highlights-grid">
+                <div class="highlight-item">
+                    <span class="highlight-icon">💧</span>
+                    <div class="highlight-text">Water Conservation Demonstrations & Workshops</div>
+                </div>
+                <div class="highlight-item">
+                    <span class="highlight-icon">🤝</span>
+                    <div class="highlight-text">Community Engagement & Networking</div>
+                </div>
+                <div class="highlight-item">
+                    <span class="highlight-icon">🎓</span>
+                    <div class="highlight-text">Skills Development & Training Sessions</div>
+                </div>
+                <div class="highlight-item">
+                    <span class="highlight-icon">🏆</span>
+                    <div class="highlight-text">Youth Innovation Challenge</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <div class="cta-title">Be Part of the Change</div>
+            <div class="cta-subtitle">Join us for this transformative 2-day summit focused on water conservation, community engagement, and sustainable solutions for our future.</div>
+            <a href="#" class="cta-button">RSVP Now</a>
+        </div>
+        
+        <div class="footer">
+            <p>Drop by Drop Outreach Summit | 30-31 October 2025</p>
+            <p>Uncle Toms Community Hall, Orlando West, Soweto</p>
+            <div class="brandscapers-section">
+                <span class="brandscapers-text">Powered by</span>
+                <img src="assets/brandscaperslogo.jpeg" alt="Brandscapers Africa Logo" class="brandscapers-logo"><span class="brandscapers-text">Brandscapers Africa</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create water droplets
+        function createWaterDroplet() {
+            const droplet = document.createElement('div');
+            droplet.className = 'water-drop';
+            droplet.style.left = Math.random() * 100 + '%';
+            droplet.style.top = '-20px';
+            droplet.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            document.getElementById('waterBackground').appendChild(droplet);
+            
+            setTimeout(() => droplet.remove(), 3000);
+        }
+
+        // Generate water droplets
+        setInterval(createWaterDroplet, 200);
+
+        // Countdown to event
+        function updateCountdown() {
+            const eventDate = new Date('2025-10-30T09:00:00');
+            const now = new Date();
+            const diff = eventDate - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Initialize countdown
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const countdownItems = document.querySelectorAll('.countdown-item');
+            
+            countdownItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Add floating animation to invitation card
+            const invitationCard = document.querySelector('.invitation-card');
+            invitationCard.style.transform = 'translateY(0)';
+            invitationCard.style.opacity = '1';
+            invitationCard.style.transition = 'transform 0.8s ease, opacity 0.8s ease';
+        });
+    </script>
+</body>
+</html>
