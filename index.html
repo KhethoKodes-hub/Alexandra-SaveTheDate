@@ -12,12 +12,21 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-color: #0a1f44;
+            --secondary-color: #1e3c72;
+            --accent-color: #7e22ce;
+            --text-color: white;
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --mobile-padding: 20px;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a1f44 0%, #1e3c72 30%, #2a5298 70%, #7e22ce 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 30%, #2a5298 70%, var(--accent-color) 100%);
             min-height: 100vh;
             overflow-x: hidden;
-            color: white;
+            color: var(--text-color);
             position: relative;
         }
 
@@ -106,13 +115,13 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 40px var(--mobile-padding);
             position: relative;
             z-index: 10;
         }
 
         .invitation-card {
-            background: rgba(255, 255, 255, 0.15);
+            background: var(--card-bg);
             backdrop-filter: blur(15px);
             border-radius: 30px;
             padding: 60px 40px;
@@ -217,10 +226,11 @@
             height: 80px;
             width: auto;
             display: block;
+            max-width: 100%;
         }
 
         h1 {
-            font-size: 4.5em;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
             font-weight: 800;
             margin-bottom: 20px;
             background: linear-gradient(135deg, #ffffff, #a8d8ff, #7e22ce);
@@ -229,6 +239,7 @@
             background-clip: text;
             animation: pulse-glow 3s ease-in-out infinite;
             position: relative;
+            line-height: 1.2;
         }
 
         @keyframes pulse-glow {
@@ -243,11 +254,12 @@
         }
 
         .subtitle {
-            font-size: 1.8em;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
             margin-bottom: 40px;
             opacity: 0.9;
             font-weight: 300;
             animation: fade-slide-up 1s ease-out 0.3s both;
+            line-height: 1.4;
         }
 
         @keyframes fade-slide-up {
@@ -272,6 +284,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             animation: fade-slide-up 1s ease-out 0.5s both;
+            min-width: 280px;
         }
 
         .date-box:hover {
@@ -281,21 +294,23 @@
         }
 
         .date {
-            font-size: 2.5em;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 10px;
         }
 
         .year {
-            font-size: 1.5em;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
             opacity: 0.9;
         }
 
         .location {
-            font-size: 1.5em;
+            font-size: clamp(1.1rem, 3.5vw, 1.5rem);
             margin-bottom: 50px;
             opacity: 0.9;
             animation: fade-slide-up 1s ease-out 0.7s both;
+            line-height: 1.4;
+            padding: 0 10px;
         }
 
         .location i {
@@ -315,7 +330,7 @@
         }
 
         .countdown-title {
-            font-size: 2em;
+            font-size: clamp(1.5rem, 4vw, 2rem);
             margin-bottom: 30px;
             font-weight: 600;
         }
@@ -339,6 +354,9 @@
             transition: transform 0.3s ease, background 0.3s ease;
             animation: fade-scale-in 0.6s ease-out both;
             cursor: pointer;
+            flex: 1;
+            min-width: 120px;
+            max-width: 160px;
         }
 
         .countdown-item:nth-child(1) { animation-delay: 0.9s; }
@@ -363,7 +381,7 @@
         }
 
         .countdown-value {
-            font-size: 3.5em;
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
             font-weight: 800;
             margin-bottom: 10px;
             background: linear-gradient(135deg, #ffffff, #a8d8ff);
@@ -378,7 +396,7 @@
         }
 
         .countdown-label {
-            font-size: 1.2em;
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
             opacity: 0.9;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -396,7 +414,7 @@
         }
 
         .highlights-title {
-            font-size: 2.2em;
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
             text-align: center;
             margin-bottom: 40px;
             font-weight: 600;
@@ -431,6 +449,10 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .highlight-item::before {
@@ -455,7 +477,7 @@
         }
 
         .highlight-icon {
-            font-size: 3em;
+            font-size: clamp(2.5rem, 6vw, 3rem);
             margin-bottom: 20px;
             display: block;
             transition: transform 0.3s ease;
@@ -468,7 +490,7 @@
         }
 
         .highlight-text {
-            font-size: 1.2em;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             line-height: 1.5;
             position: relative;
             z-index: 1;
@@ -482,18 +504,19 @@
         }
 
         .cta-title {
-            font-size: 2.5em;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             margin-bottom: 20px;
             font-weight: 700;
         }
 
         .cta-subtitle {
-            font-size: 1.3em;
+            font-size: clamp(1rem, 3vw, 1.3rem);
             margin-bottom: 40px;
             opacity: 0.9;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.5;
         }
 
         .cta-button {
@@ -502,7 +525,7 @@
             color: white;
             padding: 18px 45px;
             border-radius: 50px;
-            font-size: 1.3em;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -511,6 +534,11 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            min-width: 200px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .cta-button::before {
@@ -563,6 +591,7 @@
             height: 40px;
             width: auto;
             transition: transform 0.3s ease;
+            max-width: 100%;
         }
 
         .brandscapers-logo:hover {
@@ -591,53 +620,50 @@
             50% { transform: translate(-50%, 10px); }
         }
 
-        /* Responsive Design */
+        /* Enhanced Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 30px var(--mobile-padding);
+            }
+            
+            .invitation-card {
+                padding: 50px 30px;
+            }
+            
+            .highlights-section {
+                padding: 40px 30px;
+            }
+        }
+
         @media (max-width: 768px) {
-            h1 {
-                font-size: 3em;
+            :root {
+                --mobile-padding: 15px;
             }
             
-            .subtitle {
-                font-size: 1.4em;
+            .container {
+                padding: 20px var(--mobile-padding);
             }
             
-            .date {
-                font-size: 2em;
+            .invitation-card {
+                padding: 40px 20px;
+                border-radius: 20px;
             }
             
-            .countdown-item {
-                min-width: 120px;
-                padding: 25px 15px;
+            .logo-section {
+                gap: 20px;
             }
             
-            .countdown-value {
-                font-size: 2.8em;
+            .logo-container {
+                padding: 15px;
             }
             
             .logo-img {
                 height: 60px;
             }
             
-            .invitation-card {
-                padding: 40px 25px;
-            }
-
-            .highlights-title {
-                font-size: 1.8em;
-            }
-
-            .cta-title {
-                font-size: 2em;
-            }
-
-            .cta-subtitle {
-                font-size: 1.1em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2.5em;
+            .date-box {
+                padding: 15px 30px;
+                min-width: 240px;
             }
             
             .countdown-container {
@@ -645,37 +671,228 @@
             }
             
             .countdown-item {
+                padding: 20px 15px;
                 min-width: 100px;
-                padding: 20px 10px;
+                max-width: 140px;
             }
             
-            .countdown-value {
-                font-size: 2.2em;
+            .highlights-section {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+            
+            .highlight-item {
+                padding: 25px 20px;
+                min-height: 180px;
+            }
+            
+            .cta-button {
+                padding: 16px 35px;
+                min-width: 180px;
+                min-height: 55px;
+            }
+            
+            .footer {
+                padding: 30px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --mobile-padding: 10px;
+            }
+            
+            .container {
+                padding: 15px var(--mobile-padding);
+            }
+            
+            .invitation-card {
+                padding: 30px 15px;
+                border-radius: 15px;
+                margin-bottom: 30px;
             }
             
             .logo-section {
-                gap: 20px;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .logo-container {
+                padding: 10px;
+                border-radius: 15px;
             }
             
             .logo-img {
                 height: 50px;
             }
             
+            .date-box {
+                padding: 12px 25px;
+                min-width: 200px;
+                border-radius: 15px;
+            }
+            
+            .countdown-section {
+                margin: 30px 0;
+            }
+            
+            .countdown-container {
+                gap: 10px;
+            }
+            
+            .countdown-item {
+                padding: 15px 10px;
+                min-width: 80px;
+                max-width: 120px;
+                border-radius: 15px;
+            }
+            
+            .countdown-title {
+                margin-bottom: 20px;
+            }
+            
+            .highlights-section {
+                padding: 25px 15px;
+                border-radius: 15px;
+                margin-top: 30px;
+            }
+            
             .highlights-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
-
-            .date-box {
-                padding: 15px 30px;
+            
+            .highlight-item {
+                padding: 20px 15px;
+                min-height: 160px;
+                border-radius: 15px;
             }
-
-            .location {
-                font-size: 1.2em;
+            
+            .cta-section {
+                margin-top: 40px;
             }
-
+            
             .cta-button {
-                padding: 15px 35px;
-                font-size: 1.1em;
+                padding: 14px 30px;
+                min-width: 160px;
+                min-height: 50px;
+                border-radius: 40px;
+            }
+            
+            .footer {
+                padding: 25px 10px;
+                margin-top: 40px;
+            }
+            
+            .brandscapers-section {
+                gap: 10px;
+            }
+            
+            .brandscapers-logo {
+                height: 35px;
+            }
+            
+            /* Reduce animations on mobile for better performance */
+            .invitation-card::before {
+                animation-duration: 30s;
+            }
+            
+            .water-drop, .bubble {
+                display: none; /* Remove heavy animations on very small screens */
+            }
+        }
+
+        @media (max-width: 360px) {
+            .countdown-container {
+                gap: 8px;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+                max-width: 90px;
+                padding: 12px 8px;
+            }
+            
+            .countdown-value {
+                font-size: 1.8rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.8rem;
+            }
+            
+            .logo-section {
+                flex-direction: column;
+            }
+        }
+
+        /* Orientation-specific adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                padding: 15px var(--mobile-padding);
+            }
+            
+            .invitation-card {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+            }
+            
+            .logo-section {
+                margin-bottom: 15px;
+            }
+            
+            h1 {
+                margin-bottom: 10px;
+            }
+            
+            .subtitle {
+                margin-bottom: 20px;
+            }
+            
+            .date-box {
+                margin-bottom: 20px;
+            }
+            
+            .location {
+                margin-bottom: 30px;
+            }
+            
+            .countdown-section {
+                margin: 20px 0;
+            }
+            
+            .countdown-title {
+                margin-bottom: 15px;
+            }
+            
+            .highlights-section {
+                margin-top: 20px;
+                padding: 20px 15px;
+            }
+            
+            .highlight-item {
+                min-height: 140px;
+                padding: 15px 10px;
+            }
+        }
+
+        /* High DPI screen adjustments */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .water-drop, .bubble {
+                transform: translateZ(0); /* Force GPU rendering for smoother animations */
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .water-drop, .bubble, .wave-layer {
+                display: none;
             }
         }
     </style>
@@ -803,9 +1020,11 @@
             setTimeout(() => bubble.remove(), 8000);
         }
 
-        // Generate water droplets and bubbles
-        setInterval(createWaterDroplet, 200);
-        setInterval(createBubble, 1000);
+        // Generate water droplets and bubbles only on larger screens
+        if (window.innerWidth > 480) {
+            setInterval(createWaterDroplet, 200);
+            setInterval(createBubble, 1000);
+        }
 
         // Ripple effect on card click
         document.getElementById('invitationCard').addEventListener('click', function(e) {
@@ -861,15 +1080,17 @@
             }
         });
 
-        // Parallax effect on scroll
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.invitation-card, .highlights-section');
-            parallaxElements.forEach(el => {
-                const speed = 0.5;
-                el.style.transform = `translateY(${scrolled * speed * 0.1}px)`;
+        // Parallax effect on scroll - only on larger screens
+        if (window.innerWidth > 768) {
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.invitation-card, .highlights-section');
+                parallaxElements.forEach(el => {
+                    const speed = 0.5;
+                    el.style.transform = `translateY(${scrolled * speed * 0.1}px)`;
+                });
             });
-        });
+        }
 
         // Add interactive hover sound effect (visual feedback)
         const highlightItems = document.querySelectorAll('.highlight-item');
@@ -890,16 +1111,18 @@
             });
         });
 
-        // Add dynamic gradient animation
-        let hue = 0;
-        setInterval(() => {
-            hue = (hue + 1) % 360;
-            document.body.style.background = `linear-gradient(135deg, 
-                hsl(${hue}, 70%, 15%) 0%, 
-                hsl(${(hue + 30) % 360}, 60%, 25%) 30%, 
-                hsl(${(hue + 60) % 360}, 50%, 35%) 70%, 
-                hsl(${(hue + 90) % 360}, 60%, 30%) 100%)`;
-        }, 100);
+        // Add dynamic gradient animation - only on larger screens
+        if (window.innerWidth > 768) {
+            let hue = 0;
+            setInterval(() => {
+                hue = (hue + 1) % 360;
+                document.body.style.background = `linear-gradient(135deg, 
+                    hsl(${hue}, 70%, 15%) 0%, 
+                    hsl(${(hue + 30) % 360}, 60%, 25%) 30%, 
+                    hsl(${(hue + 60) % 360}, 50%, 35%) 70%, 
+                    hsl(${(hue + 90) % 360}, 60%, 30%) 100%)`;
+            }, 100);
+        }
 
         // Mobile touch interactions
         if ('ontouchstart' in window) {
@@ -911,6 +1134,32 @@
                     this.style.transform = '';
                 });
             });
+            
+            // Increase touch target size for CTA button
+            const ctaButton = document.querySelector('.cta-button');
+            if (ctaButton) {
+                ctaButton.style.minHeight = '60px';
+                ctaButton.style.minWidth = '200px';
+            }
+        }
+
+        // Handle orientation changes
+        window.addEventListener('orientationchange', function() {
+            // Add a small delay to allow the orientation to complete
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+            }, 200);
+        });
+
+        // Performance optimization for mobile
+        if (window.innerWidth <= 768) {
+            // Reduce animation frequency
+            if (window.innerWidth <= 480) {
+                // Remove heavy animations on very small screens
+                document.querySelectorAll('.water-drop, .bubble').forEach(el => {
+                    el.style.display = 'none';
+                });
+            }
         }
     </script>
 </body>
