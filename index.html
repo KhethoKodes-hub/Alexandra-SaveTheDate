@@ -29,6 +29,7 @@
             height: 100%;
             z-index: -1;
             opacity: 0.7;
+            pointer-events: none;
         }
 
         .water-drop {
@@ -46,6 +47,59 @@
             to {
                 top: 100vh;
                 opacity: 0;
+            }
+        }
+
+        /* Wave Animation */
+        .wave {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            z-index: 1;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .wave-layer {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 C300,100 600,20 900,60 C1200,100 1500,20 1800,60 L1800,120 L0,120 Z" fill="rgba(168,216,255,0.3)"/></svg>');
+            background-size: 50% 100%;
+            animation: wave-move 15s linear infinite;
+        }
+
+        .wave-layer:nth-child(2) {
+            animation: wave-move 20s linear infinite reverse;
+            opacity: 0.5;
+        }
+
+        @keyframes wave-move {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Bubble Animation */
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(168, 216, 255, 0.3));
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: rise linear infinite;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes rise {
+            to {
+                bottom: 100vh;
+                opacity: 0;
+                transform: translateX(100px);
             }
         }
 
@@ -68,6 +122,12 @@
             margin-bottom: 50px;
             position: relative;
             overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
         .invitation-card::before {
@@ -78,7 +138,35 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate-gradient 20s linear infinite;
             z-index: -1;
+        }
+
+        @keyframes rotate-gradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Ripple effect on click */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            pointer-events: none;
+            animation: ripple-effect 1.5s ease-out;
+        }
+
+        @keyframes ripple-effect {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 300px;
+                height: 300px;
+                opacity: 0;
+            }
         }
 
         .logo-section {
@@ -95,6 +183,34 @@
             padding: 20px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container::after {
+            content: '💧';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.5em;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .logo-container:hover::after {
+            opacity: 1;
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .logo-img {
@@ -111,7 +227,19 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: pulse-glow 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 10px rgba(168, 216, 255, 0.5));
+                transform: scale(1);
+            }
+            50% { 
+                filter: drop-shadow(0 0 25px rgba(168, 216, 255, 0.8));
+                transform: scale(1.02);
+            }
         }
 
         .subtitle {
@@ -119,6 +247,18 @@
             margin-bottom: 40px;
             opacity: 0.9;
             font-weight: 300;
+            animation: fade-slide-up 1s ease-out 0.3s both;
+        }
+
+        @keyframes fade-slide-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 0.9;
+                transform: translateY(0);
+            }
         }
 
         .date-box {
@@ -129,6 +269,15 @@
             margin-bottom: 40px;
             border: 2px solid rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: fade-slide-up 1s ease-out 0.5s both;
+        }
+
+        .date-box:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 30px rgba(168, 216, 255, 0.4);
         }
 
         .date {
@@ -146,11 +295,18 @@
             font-size: 1.5em;
             margin-bottom: 50px;
             opacity: 0.9;
+            animation: fade-slide-up 1s ease-out 0.7s both;
         }
 
         .location i {
             margin-right: 10px;
             color: #a8d8ff;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         /* Countdown Styles */
@@ -180,11 +336,29 @@
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease;
+            animation: fade-scale-in 0.6s ease-out both;
+            cursor: pointer;
+        }
+
+        .countdown-item:nth-child(1) { animation-delay: 0.9s; }
+        .countdown-item:nth-child(2) { animation-delay: 1.0s; }
+        .countdown-item:nth-child(3) { animation-delay: 1.1s; }
+        .countdown-item:nth-child(4) { animation-delay: 1.2s; }
+
+        @keyframes fade-scale-in {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .countdown-item:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.05);
             background: rgba(255, 255, 255, 0.25);
         }
 
@@ -196,6 +370,11 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-item:hover .countdown-value {
+            transform: scale(1.1);
         }
 
         .countdown-label {
@@ -213,6 +392,7 @@
             padding: 50px 40px;
             margin-top: 50px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fade-slide-up 1s ease-out 1.4s both;
         }
 
         .highlights-title {
@@ -220,6 +400,19 @@
             text-align: center;
             margin-bottom: 40px;
             font-weight: 600;
+            position: relative;
+        }
+
+        .highlights-title::after {
+            content: '💧';
+            position: absolute;
+            margin-left: 15px;
+            animation: spin-drop 3s linear infinite;
+        }
+
+        @keyframes spin-drop {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .highlights-grid {
@@ -235,6 +428,24 @@
             text-align: center;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-item::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, rgba(168, 216, 255, 0.3));
+            transition: top 0.5s ease;
+        }
+
+        .highlight-item:hover::before {
+            top: 0;
         }
 
         .highlight-item:hover {
@@ -247,17 +458,27 @@
             font-size: 3em;
             margin-bottom: 20px;
             display: block;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight-item:hover .highlight-icon {
+            transform: scale(1.2) rotateY(360deg);
         }
 
         .highlight-text {
             font-size: 1.2em;
             line-height: 1.5;
+            position: relative;
+            z-index: 1;
         }
 
         /* CTA Section */
         .cta-section {
             text-align: center;
             margin-top: 60px;
+            animation: fade-slide-up 1s ease-out 1.6s both;
         }
 
         .cta-title {
@@ -288,12 +509,36 @@
             box-shadow: 0 10px 25px rgba(0, 180, 216, 0.4);
             border: none;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .cta-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 180, 216, 0.6);
-            background: linear-gradient(135deg, #0096c7, #005b8a);
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
         }
 
         /* Footer */
@@ -311,16 +556,39 @@
             align-items: center;
             gap: 15px;
             margin-top: 30px;
+            flex-wrap: wrap;
         }
 
         .brandscapers-logo {
             height: 40px;
             width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .brandscapers-logo:hover {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .brandscapers-text {
             font-weight: 600;
             font-size: 1.1em;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce-slow 2s ease-in-out infinite;
+            z-index: 100;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 2em;
+        }
+
+        @keyframes bounce-slow {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, 10px); }
         }
 
         /* Responsive Design */
@@ -353,6 +621,18 @@
             .invitation-card {
                 padding: 40px 25px;
             }
+
+            .highlights-title {
+                font-size: 1.8em;
+            }
+
+            .cta-title {
+                font-size: 2em;
+            }
+
+            .cta-subtitle {
+                font-size: 1.1em;
+            }
         }
 
         @media (max-width: 480px) {
@@ -384,14 +664,31 @@
             .highlights-grid {
                 grid-template-columns: 1fr;
             }
+
+            .date-box {
+                padding: 15px 30px;
+            }
+
+            .location {
+                font-size: 1.2em;
+            }
+
+            .cta-button {
+                padding: 15px 35px;
+                font-size: 1.1em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="water-background" id="waterBackground"></div>
+    <div class="wave">
+        <div class="wave-layer"></div>
+        <div class="wave-layer"></div>
+    </div>
     
     <div class="container">
-        <div class="invitation-card">
+        <div class="invitation-card" id="invitationCard">
             <div class="logo-section">
                 <div class="logo-container">
                     <img src="assets/randwaterlogo.png" alt="Rand Water Logo" class="logo-img">
@@ -462,7 +759,7 @@
         <div class="cta-section">
             <div class="cta-title">Be Part of the Change</div>
             <div class="cta-subtitle">Join us for this transformative 2-day summit focused on water conservation, community engagement, and sustainable solutions for our future.</div>
-            <a href="#" class="cta-button">RSVP Now</a>
+            <a href="#" class="cta-button"><span>RSVP Now</span></a>
         </div>
         
         <div class="footer">
@@ -470,9 +767,14 @@
             <p>Uncle Toms Community Hall, Orlando West, Soweto</p>
             <div class="brandscapers-section">
                 <span class="brandscapers-text">Powered by</span>
-                <img src="assets/brandscaperslogo.jpeg" alt="Brandscapers Africa Logo" class="brandscapers-logo"><span class="brandscapers-text">Brandscapers Africa</span>
+                <img src="assets/brandscaperslogo.jpeg" alt="Brandscapers Africa Logo" class="brandscapers-logo">
+                <span class="brandscapers-text">Brandscapers Africa</span>
             </div>
         </div>
+    </div>
+
+    <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
     </div>
 
     <script>
@@ -488,8 +790,33 @@
             setTimeout(() => droplet.remove(), 3000);
         }
 
-        // Generate water droplets
+        // Create bubbles
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.style.left = Math.random() * 100 + '%';
+            bubble.style.width = (Math.random() * 30 + 10) + 'px';
+            bubble.style.height = bubble.style.width;
+            bubble.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            document.getElementById('waterBackground').appendChild(bubble);
+            
+            setTimeout(() => bubble.remove(), 8000);
+        }
+
+        // Generate water droplets and bubbles
         setInterval(createWaterDroplet, 200);
+        setInterval(createBubble, 1000);
+
+        // Ripple effect on card click
+        document.getElementById('invitationCard').addEventListener('click', function(e) {
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = e.clientX - this.getBoundingClientRect().left - 150 + 'px';
+            ripple.style.top = e.clientY - this.getBoundingClientRect().top - 150 + 'px';
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 1500);
+        });
 
         // Countdown to event
         function updateCountdown() {
@@ -497,35 +824,94 @@
             const now = new Date();
             const diff = eventDate - now;
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            } else {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+            }
         }
 
         // Initialize countdown
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // Add some interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            const countdownItems = document.querySelectorAll('.countdown-item');
-            
-            countdownItems.forEach((item, index) => {
-                item.style.animationDelay = `${index * 0.1}s`;
-            });
-            
-            // Add floating animation to invitation card
-            const invitationCard = document.querySelector('.invitation-card');
-            invitationCard.style.transform = 'translateY(0)';
-            invitationCard.style.opacity = '1';
-            invitationCard.style.transition = 'transform 0.8s ease, opacity 0.8s ease';
+        // Hide scroll indicator on scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (scrollIndicator) {
+                scrollIndicator.style.opacity = '0';
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (window.scrollY < 100) {
+                        scrollIndicator.style.opacity = '0.7';
+                    }
+                }, 1000);
+            }
         });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.invitation-card, .highlights-section');
+            parallaxElements.forEach(el => {
+                const speed = 0.5;
+                el.style.transform = `translateY(${scrolled * speed * 0.1}px)`;
+            });
+        });
+
+        // Add interactive hover sound effect (visual feedback)
+        const highlightItems = document.querySelectorAll('.highlight-item');
+        highlightItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            });
+        });
+
+        // Countdown item click animation
+        const countdownItems = document.querySelectorAll('.countdown-item');
+        countdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 10);
+            });
+        });
+
+        // Add dynamic gradient animation
+        let hue = 0;
+        setInterval(() => {
+            hue = (hue + 1) % 360;
+            document.body.style.background = `linear-gradient(135deg, 
+                hsl(${hue}, 70%, 15%) 0%, 
+                hsl(${(hue + 30) % 360}, 60%, 25%) 30%, 
+                hsl(${(hue + 60) % 360}, 50%, 35%) 70%, 
+                hsl(${(hue + 90) % 360}, 60%, 30%) 100%)`;
+        }, 100);
+
+        // Mobile touch interactions
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.countdown-item, .highlight-item, .logo-container').forEach(el => {
+                el.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                el.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+        }
     </script>
 </body>
 </html>
