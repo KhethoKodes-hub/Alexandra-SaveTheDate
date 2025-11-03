@@ -280,19 +280,21 @@
         }
 
         .date-box {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--bright-yellow), var(--warm-orange));
-            padding: 20px 40px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            border: 3px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 10px 25px rgba(255, 209, 102, 0.5);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            animation: fade-slide-up 1s ease-out 0.5s both;
-            min-width: 280px;
-        }
+    display: block;                  /* changed from inline-block -> forces its own line */
+    margin: 0 auto 20px;            /* center horizontally and give space below */
+    background: linear-gradient(135deg, var(--bright-yellow), var(--warm-orange));
+    padding: 20px 40px;
+    border-radius: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 25px rgba(255, 209, 102, 0.5);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    animation: fade-slide-up 1s ease-out 0.5s both;
+    min-width: 280px;
+    max-width: 640px;               /* optional: limit width on large screens */
+    text-align: center;             /* keep internal text centered */
+}
 
         .date-box:hover {
             transform: scale(1.05);
@@ -314,22 +316,20 @@
             text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
         }
 
-        .location {
-            font-size: clamp(1.2rem, 3.5vw, 1.6rem);
-            margin-bottom: 35px;
-              margin-top: 50px; /* 👈 add this */
-
-            font-weight: 600;
-            animation: fade-slide-up 1s ease-out 0.7s both;
-            line-height: 1.4;
-            padding: 0 15px;
-            color: var(--text-dark);
-            background: rgba(255, 255, 255, 0.7);
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 15px;
-        }
-
+       .location {
+    display: block;                 /* changed from inline-block -> forces new line */
+    margin: 10px auto 35px;         /* center and set spacing above/below */
+    font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+    font-weight: 600;
+    animation: fade-slide-up 1s ease-out 0.7s both;
+    line-height: 1.4;
+    padding: 10px 20px;             /* keep the visual padding */
+    color: var(--text-dark);
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+    max-width: calc(100% - 40px);   /* ensure it fits nicely on small screens */
+    text-align: center;             /* optional: icon + text centered */
+}
         .location i {
             margin-right: 10px;
             color: var(--primary-blue);
@@ -429,19 +429,23 @@
         }
 
         .countdown-item {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 25px 20px;
-            border-radius: 20px;
-            text-align: center;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, background 0.3s ease;
-            animation: fade-scale-in 0.6s ease-out both;
-            cursor: pointer;
-            flex: 1;
-            min-width: 80px;
-            max-width: 120px;
-        }
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px 14px;      /* slightly reduced vertical padding so content fits */
+    border-radius: 20px;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background 0.3s ease;
+    animation: fade-scale-in 0.6s ease-out both;
+    cursor: pointer;
+    flex: 1;
+    min-width: 90px;         /* slightly larger min width so labels fit */
+    max-width: 140px;        /* allow a little more room on bigger screens */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+}
 
         .countdown-item:nth-child(1) { animation-delay: 0.9s; }
         .countdown-item:nth-child(2) { animation-delay: 1.0s; }
@@ -466,25 +470,30 @@
         }
 
         .countdown-value {
-            font-size: clamp(2rem, 6vw, 3rem);
-            font-weight: 900;
-            margin-bottom: 10px;
-            color: var(--primary-blue);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
+    font-size: clamp(1.6rem, 5.2vw, 2.6rem); /* slightly smaller max so it doesn't push label */
+    font-weight: 900;
+    margin-bottom: 0;        /* spacing handled by gap in parent */
+    color: var(--primary-blue);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 1;
+}
 
         .countdown-item:hover .countdown-value {
             transform: scale(1.1);
         }
 
         .countdown-label {
-            font-size: clamp(0.9rem, 2.2vw, 1.1rem);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-dark);
-        }
+    font-size: clamp(0.75rem, 1.8vw, 0.95rem); /* smaller max */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dark);
+    white-space: normal;        /* allow wrapping */
+    overflow-wrap: anywhere;    /* break long words if necessary */
+    line-height: 1.1;
+    margin: 0 auto;
+    padding: 0 4px;             /* small horizontal padding so text can wrap */
+}
 
         .highlights-section {
             background: rgba(255, 255, 255, 0.85);
@@ -799,6 +808,21 @@
                 font-size: 0.95rem;
             }
         }
+
+        @media (max-width: 420px) {
+    .countdown-item {
+        min-width: 70px;
+        max-width: 110px;
+        padding: 16px 10px;
+    }
+    .countdown-value {
+        font-size: clamp(1.4rem, 6vw, 2.2rem);
+    }
+    .countdown-label {
+        font-size: clamp(0.7rem, 2.4vw, 0.85rem);
+        letter-spacing: 0.6px;
+    }
+}
     </style>
 </head>
 <body>
@@ -852,7 +876,7 @@
             
             <div class="location">
                 <i class="fas fa-map-marker-alt"></i>
-                Alexandra Stadium & Surrounding Areas
+                Alexandra
             </div>
             
             <div class="countdown-section">
